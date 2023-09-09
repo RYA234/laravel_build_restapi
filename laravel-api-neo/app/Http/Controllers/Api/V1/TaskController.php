@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\Task;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TaskResource;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 
+// php artisan make:resource TaskResourceをコマンドを実行
+// index show methodを編集する
 
 class TaskController extends Controller
 {
@@ -16,7 +19,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return Task::all();
+        return TaskResource::collection(Task::all());
     }
 
     /**
@@ -40,7 +43,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        return TaskResource::make($task);
     }
 
     /**
